@@ -28,6 +28,7 @@ int llantaS=3;              // ruedas
 
 
 void setup() {
+  attachInterrupt(digitalPinToInterrupt(19),serialdisponible,CHANGE);
   Wire.begin();
   Wire.beginTransmission(MPU);
   Wire.write(0x6B);
@@ -119,9 +120,6 @@ void loop() {
     digitalWrite(7,LOW);
     digitalWrite(8,LOW);
     digitalWrite(5,HIGH);
-    if(Serial.read()>0){//solamente modificamos la variable dato, cuando halla algo en el puerto serial (explicaion en el README)
-    dato=Serial.read();
-    }
        Serial.println(U);
 
   if (U < -255)     // límites de saturación de la señal de control
@@ -171,9 +169,6 @@ void loop() {
     digitalWrite(7,LOW);
     digitalWrite(8,LOW);
     digitalWrite(6,HIGH);
-    if(Serial.available()>0){
-    dato=Serial.read();
-  }
      Serial.println(U);
 
   if (U < -255)     // límites de saturación de la señal de control
@@ -218,9 +213,6 @@ void loop() {
     digitalWrite(5,LOW);
     digitalWrite(8,LOW);
     digitalWrite(7,HIGH);
-    if(Serial.available()>0){
-    dato=Serial.read();
-    }
        Serial.println(U);
 
   if (U < -255)     // límites de saturación de la señal de control
@@ -265,9 +257,6 @@ void loop() {
     digitalWrite(7,LOW);
     digitalWrite(5,LOW);
     digitalWrite(8,HIGH);
-    if(Serial.available()>0){
-    dato=Serial.read();
-    }
        Serial.println(U);
 
   if (U < -255)     // límites de saturación de la señal de control
@@ -317,9 +306,6 @@ void loop() {
     digitalWrite(7,LOW);
     digitalWrite(5,LOW);
     digitalWrite(8,LOW);
-    if(Serial.available()>0){
-    dato=Serial.read();
-    }
        Serial.println(U);
 
   if (U < -255)     // límites de saturación de la señal de control
@@ -360,4 +346,9 @@ void loop() {
   }
   parada=255;
   pwm=0;
-} 
+}
+
+void serialdisponible(){
+  dato=Serial.read();
+}
+}
